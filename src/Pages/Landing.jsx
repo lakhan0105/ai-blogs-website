@@ -43,16 +43,22 @@ function Landing() {
         </div>
 
         {/* IMAGES CONTAINER */}
-        <div className="w-1/2 min-h-[350px] mx-auto relative mt-20">
+        <div className="w-[700px] min-h-[400px] mx-auto relative mt-20">
+          <div className="absolute img-container w-full h-full"></div>
+          <div className="absolute bg-gradient-to-b from-gray-900 to-transparent top-0 h-[50%] w-full"></div>
+          <div className="absolute bg-gradient-to-b to-gray-900 from-transparent bottom-0 h-[25%] w-full"></div>
+          <div className="absolute bg-gradient-to-r from-gray-900 to-transparent top-0 bottom-0 left-0 w-[50%] h-full"></div>
+          <div className="absolute bg-gradient-to-l from-gray-900 to-transparent top-0 bottom-0 right-0 w-[50%] h-full"></div>
+
           <img
             src={img1}
-            className="absolute w-[80%] bottom-0 left-10 shadow-md h-[250px] rounded-lg"
+            className="absolute w-[60%] bottom-14 left-[20%] shadow-md h-[250px] rounded-lg z-100"
             alt="img1 not found"
           />
 
           <img
             src={img1}
-            className="absolute h-[220px] top-[8%] right-[-10%] rounded-lg shadow-xl"
+            className="absolute h-[220px] top-[8%] right-[-0%] rounded-lg shadow-xl z-100"
             alt=""
           />
         </div>

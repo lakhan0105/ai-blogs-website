@@ -10,3 +10,12 @@ body {
   background-color: rgb(17 24 39);
   color: white;
 }
+
+.img-container {
+  background-color: #111827;
+  opacity: 0.6;
+  background-image: linear-gradient(#ffffff 1.7px, transparent 1.7px),
+    linear-gradient(to right, #ffffff 1.7px, #111827 1.7px);
+  background-size: 54px 54px;
+  z-index: 10%;
+}
