@@ -10,15 +10,18 @@ import {
 
 import { Landing, Login, Register } from "./Pages/index.js";
 import ContextProvider from "./Context/ContextProvider.jsx";
-import App from "./App.jsx";
+import Rootlayout from "./Rootlayout.jsx";
 
 // create router
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route index element={<Landing />}></Route>
       <Route path="/register" element={<Register />}></Route>
       <Route path="/login" element={<Login />}></Route>
+
+      <Route element={<Rootlayout />}>
+        <Route index element={<Landing />}></Route>
+      </Route>
     </>
   )
 );
