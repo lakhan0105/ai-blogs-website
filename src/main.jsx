@@ -8,7 +8,7 @@ import {
   RouterProvider,
 } from "react-router";
 
-import { Landing, Login, Register } from "./Pages/index.js";
+import { Landing, Login, NewBlog, Register } from "./Pages/index.js";
 import ContextProvider from "./Context/ContextProvider.jsx";
 import Rootlayout from "./Rootlayout.jsx";
 
@@ -21,6 +21,7 @@ const router = createBrowserRouter(
 
       <Route element={<Rootlayout />}>
         <Route index element={<Landing />}></Route>
+        <Route path="/new-blog" element={<NewBlog />}></Route>
       </Route>
     </>
   )
