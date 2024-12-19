@@ -6,7 +6,6 @@
 
 body {
   font-family: "Inter", sans-serif;
-  /* bg-gray-900 */
   background-color: rgb(17 24 39);
   color: white;
 }
@@ -20,20 +19,35 @@ body {
   z-index: 10%;
 }
 
-.blog-response h1 {
-  font-size: 2rem;
-  font-weight: bold;
-  /* margin-top: 1.5rem; */
+.quill {
+  margin-top: 2rem;
+  height: 60vh;
+  border-radius: 0.5rem;
+  /* background-color: #fff; */
+  border: 1px solid #fff;
+  color: #000;
+  border: none;
+  display: flex;
+  flex-direction: column;
 }
 
-.blog-response h2 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-top: 1.5rem;
+.ql-toolbar,
+.ql-snow {
+  border: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.247) !important;
 }
 
-.blog-response h3 {
-  font-size: 1.2rem;
-  font-weight: bold;
-  margin-top: 1.5rem;
+.ql-editor {
+  background-color: #fff;
+  overflow: hidden;
+  border-bottom-right-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
+}
+
+.ql-toolbar {
+  /* display: inline-block; */
+  /* margin-bottom: 2rem; */
+  background-color: white;
+  border-top-right-radius: 0.5rem;
+  border-top-left-radius: 0.5rem;
 }

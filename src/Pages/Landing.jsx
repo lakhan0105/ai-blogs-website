@@ -22,7 +22,7 @@ function Landing() {
         {/* CTA buttons */}
         <div className="flex items-center justify-center gap-4">
           <a
-            href="#"
+            href="/new-blog"
             className="bg-blue-600 hover:bg-blue-700 px-4 py-2.5 rounded-md flex items-center gap-2"
           >
             Try now

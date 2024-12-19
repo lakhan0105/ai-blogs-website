@@ -3,7 +3,7 @@ import { FaArrowCircleUp } from "react-icons/fa";
 import { useMyContext } from "../Context/ContextProvider";
 
 function InputComp() {
-  const { talkToOpenAi } = useMyContext();
+  const { isLoading, showInputBox, talkToOpenAi } = useMyContext();
   const [input, setInput] = useState("");
 
   // handleInputChange
@@ -16,16 +16,20 @@ function InputComp() {
   function submitPrompt(e) {
     e.preventDefault();
     console.log(`prompt is : ${input}`);
-    talkToOpenAi(input);
+    const resp = talkToOpenAi(input);
+    if (resp) {
+      setInput("");
+    }
   }
 
   return (
-    <form className="max-w-[600px] mx-auto rounded-lg border border-white/20 bg-gray-800 p-2 flex">
+    <form className="mt-20 max-w-[600px] mx-auto rounded-lg border border-white/20 bg-gray-800 p-2 flex transition-all duration-500 opacity-100">
       <textarea
         type="text"
-        className="w-full bg-transparent  p-0 text-sm focus:outline-none resize-none"
+        className="w-full bg-transparent  p-0 text-sm outline-none resize-none"
         value={input}
         onChange={handleInputChange}
+        placeholder="Type the topic of the blog.."
       />
 
       <button type="submit" className="ml-2 self-end" onClick={submitPrompt}>

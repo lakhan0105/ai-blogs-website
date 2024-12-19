@@ -3,5 +3,6 @@ import Button from "./Button";
 import InputComp from "./InputComp";
 import Navbar from "./Navbar/Navbar";
 import NavLinks from "./Navbar/NavLinks";
+import TextEditor from "./TextEditor";
 
-export { Navbar, NavLinks, Button, InputComp, BlogResponse };
+export { Navbar, NavLinks, Button, InputComp, BlogResponse, TextEditor };
