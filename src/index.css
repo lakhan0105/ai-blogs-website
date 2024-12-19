@@ -19,3 +19,21 @@ body {
   background-size: 54px 54px;
   z-index: 10%;
 }
+
+.blog-response h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  /* margin-top: 1.5rem; */
+}
+
+.blog-response h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+}
+
+.blog-response h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+}

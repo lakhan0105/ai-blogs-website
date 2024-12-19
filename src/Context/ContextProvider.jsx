@@ -12,7 +12,7 @@ function ContextProvider({ children }) {
       messages: [
         {
           role: "user",
-          content: `Write a detailed, structured blog post based on the following input. Regardless of how vague or unclear the input is, generate a blog post that is informative, engaging, and easy to read. The blog should include an introduction, body sections with headers, and a conclusion. User's input:${prompt} .If the input is not a specific or clear topic, create a general and informative post based on common knowledge or related subjects that would still provide value to the reader.`,
+          content: `Write a detailed, structured blog post based on the following input. Regardless of how vague or unclear the input is, generate a blog post that is informative, engaging, and easy to read. The blog should include an introduction, body sections with headers, and a conclusion. User's input:${prompt} .If the input is not a specific or clear topic, create a general and informative post based on common knowledge or related subjects that would still provide value to the reader. provide the output in HTML format`,
         },
       ],
       temperature: 0.7,
