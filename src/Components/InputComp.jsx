@@ -20,7 +20,7 @@ function InputComp() {
   }
 
   return (
-    <form className="min-w-[600px] rounded-lg border border-white/20 bg-gray-800 p-2 flex">
+    <form className="max-w-[600px] mx-auto rounded-lg border border-white/20 bg-gray-800 p-2 flex">
       <textarea
         type="text"
         className="w-full bg-transparent  p-0 text-sm focus:outline-none resize-none"
