@@ -6,7 +6,7 @@ function NewBlog() {
   const { blogText, isLoading } = useMyContext();
 
   return (
-    <section className="max-w-4xl mx-auto pt-0 transition-all duration-500">
+    <section className="max-w-3xl mx-auto pt-0 transition-all duration-500">
       {/* INPUT COMPONENT (TO TAKE USER INPUT) */}
       <div
         className={`transition-all duration-500 ease-in-out  ${
@@ -20,8 +20,8 @@ function NewBlog() {
 
       {/* LOADING  */}
       <div
-        className={`mt-20 text-center text-2xl transition-all duration-500 ${
-          isLoading ? "opacity-100 visible" : "opacity-0 invisible"
+        className={`text-center text-sm transition-all duration-500 ${
+          isLoading ? "opacity-100 visible mt-20" : "opacity-0 invisible mt-5"
         }`}
       >
         {isLoading ? <h2>Loading...</h2> : ""}
@@ -29,7 +29,7 @@ function NewBlog() {
 
       {/* TEXT EDITOR  */}
       <div
-        className={`transition-all duration-500 ease-in-out ${
+        className={`relative transition-all duration-500 ease-in-out ${
           blogText && !isLoading
             ? "opacity-100 visible translate-y-0"
             : "opacity-0 invisible translate-y-5"
