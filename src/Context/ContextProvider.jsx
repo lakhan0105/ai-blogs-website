@@ -9,6 +9,17 @@ function ContextProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
   const [showInputBox, setShowInputBox] = useState(true);
 
+  const [formInput, setFormInput] = useState({});
+
+  function handleFormInput(e) {
+    const key = e.target.name;
+    const val = e.target.value;
+
+    setFormInput((prev) => {
+      return { ...prev, [key]: val };
+    });
+  }
+
   async function talkToOpenAi(prompt) {
     const apiBody = {
       model: "gpt-3.5-turbo",
@@ -46,7 +57,15 @@ function ContextProvider({ children }) {
 
   return (
     <myContext.Provider
-      value={{ talkToOpenAi, blogText, isLoading, showInputBox }}
+      value={{
+        talkToOpenAi,
+        blogText,
+        isLoading,
+        showInputBox,
+        formInput,
+        setFormInput,
+        handleFormInput,
+      }}
     >
       {children}
     </myContext.Provider>
