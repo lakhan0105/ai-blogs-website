@@ -1,12 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import FormRow from "../Components/FormRow";
 import { Button } from "../Components/index";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import bgImg from "../assets/login-page-bg.webp";
 import { useMyContext } from "../Context/ContextProvider";
 
 function Login() {
-  const { formInput, setFormInput, handleFormInput } = useMyContext();
+  const { formInput, handleFormInput, loginUser, currUser } = useMyContext();
+  const navigate = useNavigate();
+
+  // check if the user is already present
+  useEffect(() => {
+    if (currUser) {
+      navigate("/");
+    }
+  }, [currUser, navigate]);
+
+  // handleLogin
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const result = await loginUser();
+    if (result.success) {
+      navigate("/");
+    }
+  };
 
   return (
     <section className="">
@@ -43,7 +60,12 @@ function Login() {
             />
 
             {/* <button type="submit">login</button> */}
-            <Button extraStyles={"w-full rounded-md mt-4"}>Login</Button>
+            <Button
+              extraStyles={"w-full rounded-md mt-4"}
+              handleOnClick={handleLogin}
+            >
+              Login
+            </Button>
           </form>
         </div>
       </div>
