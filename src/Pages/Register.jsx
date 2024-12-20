@@ -1,12 +1,21 @@
 import React from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import FormRow from "../Components/FormRow";
 import { Button } from "../Components";
 import bgImg from "../assets/login-page-bg.webp";
 import { useMyContext } from "../Context/ContextProvider";
 
 function Register() {
-  const { formInput, setFormInput, handleFormInput } = useMyContext();
+  const { formInput, handleFormInput, registerUser } = useMyContext();
+  const navigate = useNavigate();
+
+  // function to handle register
+  const handleRegister = async () => {
+    const result = await registerUser();
+    if (result.success) {
+      navigate("/");
+    }
+  };
 
   return (
     <section className="">
@@ -34,7 +43,7 @@ function Register() {
             <FormRow
               label={"First name"}
               type={"text"}
-              name={"fname"}
+              name={"fName"}
               value={formInput.fName}
               onChange={handleFormInput}
             />
@@ -54,7 +63,12 @@ function Register() {
             />
 
             {/* <button type="submit">login</button> */}
-            <Button extraStyles={"w-full rounded-md mt-4"}>Register</Button>
+            <Button
+              extraStyles={"w-full rounded-md mt-4"}
+              handleOnClick={handleRegister}
+            >
+              Register
+            </Button>
           </form>
         </div>
       </div>

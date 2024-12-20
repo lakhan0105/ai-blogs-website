@@ -1,5 +1,15 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { Client, Account, ID } from "appwrite";
+
 const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY;
+const appwriteEndpoint = import.meta.env.VITE_APPWRITE_ENDPOINT;
+const appwriteProjectId = import.meta.env.VITE_APPWRITE_PROJECT_ID;
+
+// setup client for appwrite
+const client = new Client()
+  .setEndpoint(appwriteEndpoint) // Your API Endpoint
+  .setProject(appwriteProjectId); // Your project ID
+const account = new Account(client);
 
 const myContext = createContext();
 
@@ -8,9 +18,15 @@ function ContextProvider({ children }) {
   const [blogText, setBlogText] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showInputBox, setShowInputBox] = useState(true);
+  // authentication states
+  const [currUser, setCurrUser] = useState(null);
+  const [formInput, setFormInput] = useState({
+    fName: "",
+    email: "",
+    password: "",
+  });
 
-  const [formInput, setFormInput] = useState({});
-
+  // function to handle form inputs
   function handleFormInput(e) {
     const key = e.target.name;
     const val = e.target.value;
@@ -20,6 +36,7 @@ function ContextProvider({ children }) {
     });
   }
 
+  // function to get the response from the openai api
   async function talkToOpenAi(prompt) {
     const apiBody = {
       model: "gpt-3.5-turbo",
@@ -55,6 +72,89 @@ function ContextProvider({ children }) {
     }
   }
 
+  // check if the user is present when page loads
+  useEffect(() => {
+    console.log("running context useeffect");
+    checkUserStatus();
+  }, []);
+
+  // function to register a user
+  const registerUser = async () => {
+    try {
+      const result = await account.create(
+        ID.unique(), // ID
+        formInput.email, // email
+        formInput.password, // password
+        formInput.fName // name
+      );
+
+      console.log(result);
+
+      // login after registering
+      await account.createEmailPasswordSession(
+        formInput.email,
+        formInput.password
+      );
+
+      // get account details of the user
+      const accDetails = await account.get();
+      if (accDetails) {
+        setCurrUser(accDetails); // set the currUser state
+        return { success: true };
+      }
+    } catch (error) {
+      console.log(error);
+      return { success: false };
+    }
+  };
+
+  // function to login the user
+  const loginUser = async () => {
+    try {
+      const result = await account.createEmailPasswordSession(
+        formInput.email,
+        formInput.password
+      );
+
+      // get the latest acc details using account.get()
+      const accDetails = await account.get();
+      if (accDetails) {
+        setCurrUser(accDetails);
+        return { success: true };
+      }
+    } catch (error) {
+      console.log(error);
+      return { success: false };
+    }
+  };
+
+  // function to check user status
+  const checkUserStatus = async () => {
+    try {
+      const accDetails = await account.get();
+      setCurrUser(accDetails);
+      return { success: true };
+    } catch (error) {
+      console.log(error);
+      setCurrUser(null);
+      return { success: false };
+    }
+  };
+
+  // function to logoutUser
+  const logoutUser = async () => {
+    try {
+      const result = await account.deleteSessions();
+      if (result) {
+        setCurrUser(null);
+        return { success: true };
+      }
+    } catch (error) {
+      console.log(error);
+      return { success: false };
+    }
+  };
+
   return (
     <myContext.Provider
       value={{
@@ -63,8 +163,12 @@ function ContextProvider({ children }) {
         isLoading,
         showInputBox,
         formInput,
-        setFormInput,
         handleFormInput,
+        registerUser,
+        loginUser,
+        checkUserStatus,
+        currUser,
+        logoutUser,
       }}
     >
       {children}
