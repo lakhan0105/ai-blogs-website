@@ -1,6 +1,7 @@
+import FormRow from "../Components/FormRow";
 import Landing from "./Landing";
 import Login from "./Login";
 import NewBlog from "./NewBlog";
 import Register from "./Register";
 
-export { Landing, Register, Login, NewBlog };
+export { Landing, Register, Login, NewBlog, FormRow };
