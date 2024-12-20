@@ -1,9 +1,11 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Client, Account, ID } from "appwrite";
+import { Client, Account, ID, Databases } from "appwrite";
 
 const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY;
 const appwriteEndpoint = import.meta.env.VITE_APPWRITE_ENDPOINT;
 const appwriteProjectId = import.meta.env.VITE_APPWRITE_PROJECT_ID;
+const appwriteDatabaseId = import.meta.env.VITE_DATABASE_ID;
+const appwriteCollectionId = import.meta.env.VITE_COLLECTION_ID;
 
 // setup client for appwrite
 const client = new Client()
@@ -71,6 +73,26 @@ function ContextProvider({ children }) {
       console.log(error);
     }
   }
+
+  // function to submit the blog to the database
+  const publishBlog = async (data) => {
+    const databases = new Databases(client);
+    try {
+      const result = await databases.createDocument(
+        appwriteDatabaseId,
+        appwriteCollectionId,
+        ID.unique(),
+        data
+      );
+
+      if (result) {
+        return { success: true, msg: result };
+      }
+    } catch (error) {
+      console.log(error);
+      return { success: false, msg: error };
+    }
+  };
 
   // check if the user is present when page loads
   useEffect(() => {
@@ -169,6 +191,7 @@ function ContextProvider({ children }) {
         checkUserStatus,
         currUser,
         logoutUser,
+        publishBlog,
       }}
     >
       {children}

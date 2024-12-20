@@ -2,12 +2,14 @@ import React, { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useMyContext } from "../Context/ContextProvider";
+import { useNavigate } from "react-router";
 
 function TextEditor() {
-  const { blogText, isLoading } = useMyContext();
+  const { blogText, isLoading, publishBlog, currUser } = useMyContext();
 
-  // state to handle the text editor input
+  // state to handle the text editor input (blogText is read-only)
   const [value, setValue] = useState(blogText);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setValue(blogText);
@@ -19,12 +21,18 @@ function TextEditor() {
     setValue(html);
   }
 
-  // handleChangeSelection
-  function handleChangeSelection(range, source, editor) {
-    // range will return 2 things -> index where the cursor is clicked and length of the selected text
-    if (range && range.length > 0) {
-      const bounds = editor.getBounds(range.index, range.length);
-      console.log(bounds);
+  // handlePublish
+  async function handlePublish() {
+    if (currUser) {
+      const data = { blogText: value, authorId: currUser.$id };
+      const result = await publishBlog(data);
+
+      if (result.success) {
+        navigate("/");
+        console.log("blog published successfully!");
+      }
+    } else {
+      alert("please login to publish the blog!");
     }
   }
 
@@ -34,12 +42,20 @@ function TextEditor() {
 
   if (blogText) {
     return (
-      <ReactQuill
-        theme="snow"
-        value={value}
-        onChange={handleUpdateBlogText}
-        onChangeSelection={handleChangeSelection}
-      ></ReactQuill>
+      <>
+        <button
+          className="absolute right-3 top-2 border px-2 py-0.5 rounded-md text-sm bg-green-600 hover:bg-green-500 shadow-sm hover:shadow-md"
+          onClick={handlePublish}
+        >
+          Publish
+        </button>
+
+        <ReactQuill
+          theme="snow"
+          value={value}
+          onChange={handleUpdateBlogText}
+        ></ReactQuill>
+      </>
     );
   }
 }

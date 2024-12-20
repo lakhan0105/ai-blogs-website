@@ -11,7 +11,6 @@ import {
 import { Landing, Login, NewBlog, Register } from "./Pages/index.js";
 import ContextProvider from "./Context/ContextProvider.jsx";
 import Rootlayout from "./Rootlayout.jsx";
-import ProtectedRoute from "./utils/ProtectedRoute.jsx";
 
 // create router
 const router = createBrowserRouter(
