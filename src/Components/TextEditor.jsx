@@ -9,6 +9,7 @@ function TextEditor() {
 
   // state to handle the text editor input (blogText is read-only)
   const [value, setValue] = useState(blogText);
+  const [blogTitle, setBlogTitle] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,10 +22,34 @@ function TextEditor() {
     setValue(html);
   }
 
+  // function to create description (returns a desc text extracted from the value)
+  function createDesc() {
+    if (!value) return;
+    const parsed = new DOMParser().parseFromString(value, "text/html");
+    const pTags = parsed.querySelectorAll("p");
+    let textContent = "";
+
+    // extract text from each p tag
+    pTags.forEach((item) => {
+      console.log(textContent.length);
+      textContent += `${item.textContent} `;
+    });
+
+    const finalDesc = [...textContent.slice(0, 80), "..."].join("");
+    return finalDesc;
+  }
+
   // handlePublish
   async function handlePublish() {
     if (currUser) {
-      const data = { blogText: value, authorId: currUser.$id };
+      // const desc = value
+      const blogDesc = createDesc();
+      const data = {
+        blogTitle,
+        blogText: value,
+        authorId: currUser.$id,
+        blogDesc,
+      };
       const result = await publishBlog(data);
 
       if (result.success) {
@@ -43,6 +68,7 @@ function TextEditor() {
   if (blogText) {
     return (
       <>
+        {/* button to publish the blog */}
         <button
           className="absolute right-3 top-2 border px-2 py-0.5 rounded-md text-sm bg-green-600 hover:bg-green-500 shadow-sm hover:shadow-md"
           onClick={handlePublish}
@@ -50,6 +76,19 @@ function TextEditor() {
           Publish
         </button>
 
+        {/* Input to take the blog title */}
+        <input
+          className="absolute w-[200px] right-20 top-2 border px-2 py-0.5 rounded text-sm outline-none focus:border-gray-700/40 focus:shadow-sm text-black"
+          type="text"
+          name="blogTitle"
+          placeholder="enter title here"
+          value={blogTitle}
+          onChange={(e) => {
+            setBlogTitle(e.target.value);
+          }}
+        />
+
+        {/* React-quill text editor */}
         <ReactQuill
           theme="snow"
           value={value}

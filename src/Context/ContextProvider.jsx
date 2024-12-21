@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Client, Account, ID, Databases } from "appwrite";
+import { Client, Account, ID, Databases, Query } from "appwrite";
 
 const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY;
 const appwriteEndpoint = import.meta.env.VITE_APPWRITE_ENDPOINT;
@@ -177,6 +177,31 @@ function ContextProvider({ children }) {
     }
   };
 
+  // function to list the blogs
+  const listBlogs = async () => {
+    const databases = new Databases(client);
+
+    try {
+      const result = await databases.listDocuments(
+        appwriteDatabaseId,
+        appwriteCollectionId,
+        [Query.equal("authorId", [currUser.$id])]
+      );
+
+      if (result) {
+        return {
+          success: true,
+          blogsList: result?.documents,
+          totalBlogs: result?.total,
+        };
+      }
+    } catch (error) {
+      console.log("something went wrong in listBlogs");
+      console.log(error);
+      return { success: false, msg: error };
+    }
+  };
+
   return (
     <myContext.Provider
       value={{
@@ -192,6 +217,7 @@ function ContextProvider({ children }) {
         currUser,
         logoutUser,
         publishBlog,
+        listBlogs,
       }}
     >
       {children}

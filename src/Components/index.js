@@ -5,6 +5,7 @@ import LogoutBtn from "./LogoutBtn";
 import Navbar from "./Navbar/Navbar";
 import NavLinks from "./Navbar/NavLinks";
 import TextEditor from "./TextEditor";
+import FormRow from "./FormRow";
 
 export {
   Navbar,
@@ -14,4 +15,5 @@ export {
   BlogResponse,
   TextEditor,
   LogoutBtn,
+  FormRow,
 };

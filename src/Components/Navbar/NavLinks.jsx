@@ -5,6 +5,7 @@ const navLinksData = [
   { id: 1, linkName: "home", path: "/" },
   { id: 2, linkName: "About", path: "/" },
   { id: 3, linkName: "Services", path: "/" },
+  { id: 4, linkName: "My Blogs", path: "/my-blogs" },
 ];
 
 function NavLinks() {
