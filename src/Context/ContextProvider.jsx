@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Client, Account, ID, Databases, Query } from "appwrite";
+import { FaSleigh } from "react-icons/fa";
 
 const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY;
 const appwriteEndpoint = import.meta.env.VITE_APPWRITE_ENDPOINT;
@@ -202,6 +203,30 @@ function ContextProvider({ children }) {
     }
   };
 
+  // function to fetch a single blog
+  const getBlog = async (docId) => {
+    const databases = new Databases(client);
+
+    try {
+      const result = await databases.getDocument(
+        appwriteDatabaseId,
+        appwriteCollectionId,
+        docId
+      );
+      console.log(result);
+
+      if (result) {
+        return { success: true, blogDetails: result };
+      }
+    } catch (error) {
+      isLoading(false);
+      console.log("Error in getBlog", error);
+      return { success: false, error };
+    }
+  };
+
+  
+
   return (
     <myContext.Provider
       value={{
@@ -218,6 +243,7 @@ function ContextProvider({ children }) {
         logoutUser,
         publishBlog,
         listBlogs,
+        getBlog,
       }}
     >
       {children}

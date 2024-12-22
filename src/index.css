@@ -47,9 +47,28 @@ body {
 }
 
 .ql-toolbar {
-  /* display: inline-block; */
-  /* margin-bottom: 2rem; */
   background-color: white;
   border-top-right-radius: 0.5rem;
   border-top-left-radius: 0.5rem;
+}
+
+/* blog content styling */
+.blog-content h1 {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+}
+
+.blog-content h2 {
+  font-size: 1.875rem; /* 30px */
+  line-height: 2.25rem; /* 36px */
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.blog-content p {
+  margin-bottom: 1.8rem;
+  line-height: 1.7rem;
 }
