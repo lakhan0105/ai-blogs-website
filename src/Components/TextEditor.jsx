@@ -35,7 +35,7 @@ function TextEditor() {
       textContent += `${item.textContent} `;
     });
 
-    const finalDesc = [...textContent.slice(0, 80), "..."].join("");
+    const finalDesc = [...textContent.slice(0, 180), "..."].join("");
     return finalDesc;
   }
 

@@ -9,6 +9,7 @@ import {
 } from "react-router";
 
 import {
+  Blog,
   Landing,
   Login,
   MyBlogsList,
@@ -29,6 +30,7 @@ const router = createBrowserRouter(
         <Route index element={<Landing />}></Route>
         <Route path="/new-blog" element={<NewBlog />}></Route>
         <Route path="/my-blogs" element={<MyBlogsList />}></Route>
+        <Route path="/blog/:id" element={<Blog />}></Route>
       </Route>
     </>
   )
