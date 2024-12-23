@@ -7,7 +7,7 @@ function NewBlog() {
 
   return (
     <section className="max-w-3xl mx-auto pt-0 transition-all duration-500">
-      {/* INPUT COMPONENT (TO TAKE USER INPUT) */}
+      {/* INPUT COMPONENT (TO TAKE USER INPUT PROMPT) */}
       <div
         className={`transition-all duration-500 ease-in-out  ${
           blogText || isLoading

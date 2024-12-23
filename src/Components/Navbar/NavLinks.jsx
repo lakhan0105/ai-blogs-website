@@ -2,10 +2,9 @@ import React from "react";
 import { NavLink } from "react-router";
 
 const navLinksData = [
-  { id: 1, linkName: "home", path: "/" },
-  { id: 2, linkName: "About", path: "/" },
-  { id: 3, linkName: "Services", path: "/" },
-  { id: 4, linkName: "My Blogs", path: "/my-blogs" },
+  { id: 1, linkName: "Explore", path: "/all-blogs" },
+  { id: 2, linkName: "Create", path: "/new-blog" },
+  { id: 3, linkName: "My Blogs", path: "/my-blogs" },
 ];
 
 function NavLinks() {

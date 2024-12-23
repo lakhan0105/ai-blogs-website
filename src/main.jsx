@@ -9,6 +9,7 @@ import {
 } from "react-router";
 
 import {
+  AllBlogs,
   Blog,
   Landing,
   Login,
@@ -27,7 +28,8 @@ const router = createBrowserRouter(
       <Route path="/login" element={<Login />}></Route>
 
       <Route element={<Rootlayout />}>
-        <Route index element={<Landing />}></Route>
+        <Route path="/" element={<Landing />}></Route>
+        <Route path="/all-blogs" element={<AllBlogs />}></Route>
         <Route path="/new-blog" element={<NewBlog />}></Route>
         <Route path="/my-blogs" element={<MyBlogsList />}></Route>
         <Route path="/blog/:id" element={<Blog />}></Route>
