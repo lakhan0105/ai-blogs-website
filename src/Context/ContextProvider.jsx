@@ -225,7 +225,29 @@ function ContextProvider({ children }) {
     }
   };
 
-  
+  // function to get all the blogs
+  const getAllBlogs = async () => {
+    const databases = new Databases(client);
+
+    try {
+      setIsLoading(true);
+      const result = await databases.listDocuments(
+        appwriteDatabaseId,
+        appwriteCollectionId
+      );
+      setIsLoading(false);
+      console.log(result);
+      return {
+        success: true,
+        documents: result?.documents,
+        total: result?.total,
+      };
+    } catch (error) {
+      setIsLoading(false);
+      console.log(error);
+      return { success: false, error };
+    }
+  };
 
   return (
     <myContext.Provider
@@ -244,6 +266,7 @@ function ContextProvider({ children }) {
         publishBlog,
         listBlogs,
         getBlog,
+        getAllBlogs,
       }}
     >
       {children}
