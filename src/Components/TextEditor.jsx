@@ -4,17 +4,17 @@ import "react-quill/dist/quill.snow.css";
 import { useMyContext } from "../Context/ContextProvider";
 import { useNavigate } from "react-router";
 
-function TextEditor() {
-  const { blogText, isLoading, publishBlog, currUser } = useMyContext();
+function TextEditor({ passText, passTitle, isEditing, authorId, documentId }) {
+  const { isLoading, publishBlog, updateBlog, currUser } = useMyContext();
 
   // state to handle the text editor input (blogText is read-only)
-  const [value, setValue] = useState(blogText);
-  const [blogTitle, setBlogTitle] = useState("");
+  const [value, setValue] = useState(passText);
+  const [blogTitle, setBlogTitle] = useState(passTitle || "");
   const navigate = useNavigate();
 
   useEffect(() => {
-    setValue(blogText);
-  }, [blogText]);
+    setValue(passText);
+  }, [passText]);
 
   // handleUpdateBlogText
   // we can accept the editor content as a html string
@@ -61,19 +61,38 @@ function TextEditor() {
     }
   }
 
+  // handleUpdateBlog (eidts and updates the blog in the appwrite)
+  async function handleUpdateBlog() {
+    // check if the loggedIn user has the permission to update
+    if (authorId !== currUser?.$id) {
+      console.log("sorry, you do not have the permission to edit this blog!");
+      return;
+    }
+
+    const data = { blogTitle, blogText: value };
+    const result = await updateBlog(documentId, data);
+
+    if (result?.success) {
+      console.log("edited successfully!");
+      navigate("/");
+    } else {
+      console.log("could not edit the blog!");
+    }
+  }
+
   if (isLoading) {
     return <h1 className="text-center">Generating your blog...</h1>;
   }
 
-  if (blogText) {
+  if (passText) {
     return (
       <>
         {/* button to publish the blog */}
         <button
           className="absolute right-3 top-2 border px-2 py-0.5 rounded-md text-sm bg-green-600 hover:bg-green-500 shadow-sm hover:shadow-md"
-          onClick={handlePublish}
+          onClick={isEditing ? handleUpdateBlog : handlePublish}
         >
-          Publish
+          {isEditing ? "Update" : "Publish"}
         </button>
 
         {/* Input to take the blog title */}

@@ -35,7 +35,7 @@ function NewBlog() {
             : "opacity-0 invisible translate-y-5"
         }`}
       >
-        <TextEditor />
+        <TextEditor passText={blogText} />
       </div>
     </section>
   );
