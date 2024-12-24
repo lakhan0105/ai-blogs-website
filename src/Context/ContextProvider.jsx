@@ -29,6 +29,9 @@ function ContextProvider({ children }) {
     password: "",
   });
 
+  // filter btn name state used in allBlogs
+  const [filterBtnName, setFilterBtnName] = useState("all");
+
   // function to handle form inputs
   function handleFormInput(e) {
     const key = e.target.name;
@@ -203,6 +206,26 @@ function ContextProvider({ children }) {
     }
   };
 
+  // function to list the filtered blogs
+  const listFilteredBlogs = async (btnName) => {
+    const databases = new Databases(client);
+
+    try {
+      const result = await databases.listDocuments(
+        appwriteDatabaseId,
+        appwriteCollectionId,
+        [Query.contains("blogCategories", [btnName])]
+      );
+      return {
+        success: true,
+        documents: result?.documents,
+        total: result?.total,
+      };
+    } catch (error) {
+      return { success: false, error };
+    }
+  };
+
   // function to fetch a single blog
   const getBlog = async (docId) => {
     const databases = new Databases(client);
@@ -236,7 +259,7 @@ function ContextProvider({ children }) {
         appwriteCollectionId
       );
       setIsLoading(false);
-      console.log(result);
+
       return {
         success: true,
         documents: result?.documents,
@@ -286,6 +309,9 @@ function ContextProvider({ children }) {
         getBlog,
         getAllBlogs,
         updateBlog,
+        listFilteredBlogs,
+        filterBtnName,
+        setFilterBtnName,
       }}
     >
       {children}
