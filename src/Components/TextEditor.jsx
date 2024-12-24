@@ -3,6 +3,7 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { useMyContext } from "../Context/ContextProvider";
 import { useNavigate } from "react-router";
+import InputSelection from "./InputSelection";
 
 function TextEditor({ passText, passTitle, isEditing, authorId, documentId }) {
   const { isLoading, publishBlog, updateBlog, currUser } = useMyContext();
@@ -10,6 +11,8 @@ function TextEditor({ passText, passTitle, isEditing, authorId, documentId }) {
   // state to handle the text editor input (blogText is read-only)
   const [value, setValue] = useState(passText);
   const [blogTitle, setBlogTitle] = useState(passTitle || "");
+  const [selectedCat, setSelectedCat] = useState([]);
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,6 +52,7 @@ function TextEditor({ passText, passTitle, isEditing, authorId, documentId }) {
         blogText: value,
         authorId: currUser.$id,
         blogDesc,
+        blogCategories: selectedCat,
       };
       const result = await publishBlog(data);
 
@@ -69,7 +73,7 @@ function TextEditor({ passText, passTitle, isEditing, authorId, documentId }) {
       return;
     }
 
-    const data = { blogTitle, blogText: value };
+    const data = { blogTitle, blogText: value, blogCategories: selectedCat };
     const result = await updateBlog(documentId, data);
 
     if (result?.success) {
@@ -97,7 +101,7 @@ function TextEditor({ passText, passTitle, isEditing, authorId, documentId }) {
 
         {/* Input to take the blog title */}
         <input
-          className="absolute w-[200px] right-20 top-2 border px-2 py-0.5 rounded text-sm outline-none focus:border-gray-700/40 focus:shadow-sm text-black"
+          className="absolute w-[150px] left-0 top-[-30px] border px-2 py-0.5 rounded text-sm outline-none focus:border-gray-700/40 focus:shadow-sm text-black"
           type="text"
           name="blogTitle"
           placeholder="enter title here"
@@ -106,6 +110,10 @@ function TextEditor({ passText, passTitle, isEditing, authorId, documentId }) {
             setBlogTitle(e.target.value);
           }}
         />
+
+        <div className="absolute min-w-[250px] max-w-[350px] right-[80px] top-1.5 text-black text-sm">
+          <InputSelection setSelectedCat={setSelectedCat} />
+        </div>
 
         {/* React-quill text editor */}
         <ReactQuill

@@ -7,6 +7,7 @@ import NavLinks from "./Navbar/NavLinks";
 import TextEditor from "./TextEditor";
 import FormRow from "./FormRow";
 import UserProfile from "./UserProfile";
+import InputSelection from "./InputSelection";
 
 export {
   Navbar,
@@ -18,4 +19,5 @@ export {
   LogoutBtn,
   FormRow,
   UserProfile,
+  InputSelection,
 };
