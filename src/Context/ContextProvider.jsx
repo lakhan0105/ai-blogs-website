@@ -249,6 +249,24 @@ function ContextProvider({ children }) {
     }
   };
 
+  // function to updateBlog
+  const updateBlog = async (documentId, data) => {
+    const databases = new Databases(client);
+
+    try {
+      const result = await databases.updateDocument(
+        appwriteDatabaseId,
+        appwriteCollectionId,
+        documentId,
+        data
+      );
+      return { success: true, result };
+    } catch (error) {
+      console.log(error);
+      return { success: false, error };
+    }
+  };
+
   return (
     <myContext.Provider
       value={{
@@ -267,6 +285,7 @@ function ContextProvider({ children }) {
         listBlogs,
         getBlog,
         getAllBlogs,
+        updateBlog,
       }}
     >
       {children}
