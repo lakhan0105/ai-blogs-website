@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useMyContext } from "../Context/ContextProvider";
 import { Link } from "react-router";
+import { Author } from "../Components";
 
 function AllBlogs() {
   const {
@@ -78,7 +79,11 @@ function AllBlogs() {
                     </p>
                   </div>
 
-                  {/* <div>img</div> */}
+                  {/* author information */}
+                  <div>
+                    {/* {console.log(blog.authorId)} */}
+                    {blog && <Author authorId={authorId} />}
+                  </div>
                 </article>
               </Link>
             );

@@ -8,6 +8,7 @@ import TextEditor from "./TextEditor";
 import FormRow from "./FormRow";
 import UserProfile from "./UserProfile";
 import InputSelection from "./InputSelection";
+import Author from "./Author";
 
 export {
   Navbar,
@@ -20,4 +21,5 @@ export {
   FormRow,
   UserProfile,
   InputSelection,
+  Author,
 };
