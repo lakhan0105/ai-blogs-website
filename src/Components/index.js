@@ -1,4 +1,3 @@
-import BlogResponse from "./BlogResponse";
 import Button from "./Button";
 import InputComp from "./InputComp";
 import LogoutBtn from "./LogoutBtn";
@@ -15,7 +14,6 @@ export {
   NavLinks,
   Button,
   InputComp,
-  BlogResponse,
   TextEditor,
   LogoutBtn,
   FormRow,

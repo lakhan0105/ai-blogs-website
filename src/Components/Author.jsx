@@ -22,7 +22,7 @@ function Author({ authorId }) {
 
   return (
     <div className="mt-2 text-sm">
-      <p className="italic text-zinc-300">
+      <p className="italic text-zinc-300/95">
         written by: {authorState?.authorName}
       </p>
     </div>

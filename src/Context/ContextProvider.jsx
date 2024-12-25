@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { Client, Account, Databases, Query, ID } from "appwrite";
 import { FaSleigh } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
 
 const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY;
 const appwriteEndpoint = import.meta.env.VITE_APPWRITE_ENDPOINT;

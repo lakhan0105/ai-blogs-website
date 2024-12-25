@@ -7,6 +7,7 @@ import {
   Route,
   RouterProvider,
 } from "react-router";
+import toast, { Toaster } from "react-hot-toast";
 
 import {
   AllBlogs,
@@ -19,6 +20,8 @@ import {
 } from "./Pages/index.js";
 import ContextProvider from "./Context/ContextProvider.jsx";
 import Rootlayout from "./Rootlayout.jsx";
+
+const notify = () => toast("Here is your toast.");
 
 // create router
 const router = createBrowserRouter(

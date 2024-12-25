@@ -4,6 +4,7 @@ import "react-quill/dist/quill.snow.css";
 import { useMyContext } from "../Context/ContextProvider";
 import { useNavigate } from "react-router";
 import InputSelection from "./InputSelection";
+import toast, { Toaster } from "react-hot-toast";
 
 function TextEditor({ passText, passTitle, isEditing, authorId, documentId }) {
   const { isLoading, publishBlog, updateBlog, currUser } = useMyContext();
@@ -57,11 +58,15 @@ function TextEditor({ passText, passTitle, isEditing, authorId, documentId }) {
       const result = await publishBlog(data);
 
       if (result.success) {
+        toast.success("blog published successfully!");
         navigate("/");
-        console.log("blog published successfully!");
+      } else if (result?.success === false) {
+        toast.error(
+          "could not publish the blog, something went wrong in publishBlog"
+        );
       }
     } else {
-      alert("please login to publish the blog!");
+      toast.error("please login to publish the blog!");
     }
   }
 
@@ -77,8 +82,8 @@ function TextEditor({ passText, passTitle, isEditing, authorId, documentId }) {
     const result = await updateBlog(documentId, data);
 
     if (result?.success) {
-      console.log("edited successfully!");
       navigate("/");
+      toast.success("edited successfully!");
     } else {
       console.log("could not edit the blog!");
     }

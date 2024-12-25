@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import moment from "moment";
 import { FaEdit } from "react-icons/fa";
 import { TextEditor } from "../Components";
+import { Toaster } from "react-hot-toast";
 
 function Blog() {
   const { getBlog, currUser, updateBlog } = useMyContext();
@@ -72,11 +73,13 @@ function Blog() {
         {!showTextEditor && (
           <div>
             {/* blog info container */}
-            <div className="border-b border-white/20 py-4 mb-10 flex items-center">
+            <div className="border-b border-white/20 py-4 pb-8 mb-10 flex items-center">
               {/* left */}
               <div className="w-full">
-                <h1 className="text-5xl font-bold">{blogData?.blogTitle}</h1>
-                <p className="italic text-sm mt-2 px-1 text-zinc-300">
+                <h1 className="text-5xl font-bold leading-tight">
+                  {blogData?.blogTitle}
+                </h1>
+                <p className="italic text-sm mt-2.5 px-1 text-zinc-300">
                   updated on: <span className="">{blogUpdatedDate}</span>
                 </p>
               </div>

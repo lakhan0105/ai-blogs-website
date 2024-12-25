@@ -29,7 +29,7 @@ function NewBlog() {
 
       {/* TEXT EDITOR  */}
       <div
-        className={`relative transition-all duration-500 ease-in-out ${
+        className={`relative mt-20 transition-all duration-500 ease-in-out ${
           blogText && !isLoading
             ? "opacity-100 visible translate-y-0"
             : "opacity-0 invisible translate-y-5"
