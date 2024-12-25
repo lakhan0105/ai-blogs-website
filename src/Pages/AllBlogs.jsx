@@ -59,7 +59,9 @@ function AllBlogs() {
       <div className="flex items-start">
         {/* left */}
         <div className="w-full max-w-[800px] ">
-          <h2 className="text-xl px-2.5 mb-3">Featured Blogs</h2>
+          <h2 className="text-xl px-2.5 mb-3">
+            {filterBtnName ? `#${filterBtnName}` : "blogs"}
+          </h2>
 
           {allblogs?.map((blog) => {
             const { blogTitle, blogDesc, $id, authorId, $createdAt } = blog;
@@ -91,7 +93,7 @@ function AllBlogs() {
         </div>
 
         {/* right */}
-        <div className="border-l border-white/10 rounded-md w-[330px] ml-6 mt-16 px-6 py-2 pb-24">
+        <div className="border-l border-white/10 rounded-md w-[350px] ml-6 mt-16 px-6 py-2 pb-24">
           <div className="mt-5">
             <h2 className="mb-6 text-xl">Categories</h2>
             <div className="flex gap-4 flex-wrap">
@@ -100,7 +102,11 @@ function AllBlogs() {
                   <button
                     key={index}
                     name={item}
-                    className="ring-1 ring-cyan-100/20 text-sm tracking-wide px-4 shadow-md rounded-xl bg-gray-800/80 hover:bg-gray-800/90 hover:shadow-lg hover:ring-1 hover:ring-cyan-100/30 focus:bg-gray-100 focus:text-black"
+                    className={`ring-1 ring-cyan-100/20 text-sm tracking-wide px-5 py-0.5 shadow-md rounded-xl bg-gray-800/80  hover:shadow-lg hover:ring-1 hover:ring-cyan-100/30 focus:bg-cyan-600 focus:text-white ${
+                      filterBtnName === item
+                        ? "bg-cyan-600 text-white bg-cyan-600"
+                        : ""
+                    }`}
                     onClick={(e) => {
                       setFilterBtnName(e.target.name);
                     }}
