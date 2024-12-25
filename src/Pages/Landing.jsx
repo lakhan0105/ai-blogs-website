@@ -4,6 +4,7 @@ import { FaArrowRightLong } from "react-icons/fa6";
 import { FaVideo } from "react-icons/fa6";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import img1 from "../assets/img1.png";
+import img2 from "../assets/two.png";
 
 function Landing() {
   return (
@@ -52,13 +53,13 @@ function Landing() {
 
           <img
             src={img1}
-            className="absolute w-[60%] bottom-14 left-[20%] shadow-md h-[250px] rounded-lg z-100"
+            className="absolute w-[60%] bottom-14 left-[20%] shadow-2xl shadow-white/0 h-[250px] rounded-lg z-100"
             alt="img1 not found"
           />
 
           <img
-            src={img1}
-            className="absolute h-[220px] top-[8%] right-[-0%] rounded-lg shadow-xl z-100"
+            src={img2}
+            className="absolute h-[220px] top-[5%] right-[4%] rounded-lg shadow-2xl  z-100"
             alt=""
           />
         </div>
