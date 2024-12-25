@@ -12,26 +12,37 @@ function NavLinks() {
   const { currUser } = useMyContext();
 
   return (
-    <ul className="flex gap-10 capitalize">
+    <ul className="flex gap-10 capitalize text-zinc-300">
       {navLinksData.map((link) => {
         const { id, linkName, path } = link;
 
         if (linkName === "My Blogs") {
           return (
-            <>
+            <div key={id}>
               {currUser && (
-                <li key={id} className="hover:text-blue-400">
-                  <NavLink to={path}>{linkName}</NavLink>
-                </li>
+                <NavLink
+                  to={path}
+                  className={({ isActive }) => {
+                    return isActive ? "text-cyan-400" : "hover:text-zinc-200";
+                  }}
+                >
+                  <li>{linkName}</li>
+                </NavLink>
               )}
-            </>
+            </div>
           );
         }
 
         return (
-          <li key={id} className="hover:text-blue-400">
-            <NavLink to={path}>{linkName}</NavLink>
-          </li>
+          <NavLink
+            to={path}
+            className={({ isActive }) => {
+              return isActive ? "text-cyan-400" : "hover:text-zinc-200";
+            }}
+            key={id}
+          >
+            <li>{linkName}</li>
+          </NavLink>
         );
       })}
     </ul>

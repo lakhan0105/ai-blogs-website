@@ -58,7 +58,7 @@ function AllBlogs() {
     <section className="max-w-5xl mx-auto py-10 px-2.5">
       <div className="flex items-start">
         {/* left */}
-        <div className="w-full max-w-[800px] ">
+        <div className="w-full max-w-[800px] text-zinc-200">
           <h2 className="text-xl px-2.5 mb-3">
             {filterBtnName ? `#${filterBtnName}` : "blogs"}
           </h2>
@@ -70,22 +70,19 @@ function AllBlogs() {
               <Link key={$id} to={`/blog/${$id}`}>
                 <article
                   key={$id}
-                  className="border-b border-white/20 py-9 px-2.5 hover:bg-gray-800/10 hover:rounded"
+                  className="border-b border-gray-700/30 py-9 px-2.5 hover:bg-gray-800/10 hover:rounded "
                 >
                   <div>
                     <h2 className="text-3xl font-bold leading-relaxed">
                       {blogTitle}
                     </h2>
-                    <p className="max-w-[95%] text-sm leading-relaxed">
+                    <p className="max-w-[95%] text-sm leading-relaxed text-zinc-300/95">
                       {blogDesc}
                     </p>
                   </div>
 
                   {/* author information */}
-                  <div>
-                    {/* {console.log(blog.authorId)} */}
-                    {blog && <Author authorId={authorId} />}
-                  </div>
+                  <div>{blog && <Author authorId={authorId} />}</div>
                 </article>
               </Link>
             );
@@ -93,7 +90,7 @@ function AllBlogs() {
         </div>
 
         {/* right */}
-        <div className="border-l border-white/10 rounded-md w-[350px] ml-6 mt-16 px-6 py-2 pb-24">
+        <div className="border-l border-gray-700/20 rounded-md w-[350px] ml-6 mt-16 px-6 py-2 pb-24">
           <div className="mt-5">
             <h2 className="mb-6 text-xl">Categories</h2>
             <div className="flex gap-4 flex-wrap">
@@ -102,10 +99,8 @@ function AllBlogs() {
                   <button
                     key={index}
                     name={item}
-                    className={`ring-1 ring-cyan-100/20 text-sm tracking-wide px-5 py-0.5 shadow-md rounded-xl bg-gray-800/80  hover:shadow-lg hover:ring-1 hover:ring-cyan-100/30 focus:bg-cyan-600 focus:text-white ${
-                      filterBtnName === item
-                        ? "bg-cyan-600 text-white bg-cyan-600"
-                        : ""
+                    className={`ring-1 ring-cyan-100/20 text-sm text-zinc-300 tracking-wide px-5 py-0.5 shadow-md rounded-xl bg-gray-800/80  hover:shadow-lg hover:ring-1 hover:ring-cyan-100/30 focus:bg-cyan-600 focus:text-white ${
+                      filterBtnName === item ? "text-zinc-50 bg-cyan-600" : ""
                     }`}
                     onClick={(e) => {
                       setFilterBtnName(e.target.name);
