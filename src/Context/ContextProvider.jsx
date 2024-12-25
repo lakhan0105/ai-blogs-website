@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { Client, Account, ID, Databases, Query } from "appwrite";
+import { Client, Account, Databases, Query, ID } from "appwrite";
 import { FaSleigh } from "react-icons/fa";
 
 const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY;
@@ -7,6 +7,7 @@ const appwriteEndpoint = import.meta.env.VITE_APPWRITE_ENDPOINT;
 const appwriteProjectId = import.meta.env.VITE_APPWRITE_PROJECT_ID;
 const appwriteDatabaseId = import.meta.env.VITE_DATABASE_ID;
 const appwriteCollectionId = import.meta.env.VITE_COLLECTION_ID;
+const appwriteAuthorInfoCollId = import.meta.env.VITE_AUTHOR_INFO_COLL_ID;
 
 // setup client for appwrite
 const client = new Client()
@@ -106,15 +107,19 @@ function ContextProvider({ children }) {
 
   // function to register a user
   const registerUser = async () => {
+    const uniqueId = ID.unique();
+
     try {
       const result = await account.create(
-        ID.unique(), // ID
+        uniqueId, // ID
         formInput.email, // email
         formInput.password, // password
         formInput.fName // name
       );
 
-      console.log(result);
+      // store author info in appwrite database separately
+      const createAuth = await createAuthor(uniqueId);
+      console.log(createAuth);
 
       // login after registering
       await account.createEmailPasswordSession(
@@ -131,6 +136,24 @@ function ContextProvider({ children }) {
     } catch (error) {
       console.log(error);
       return { success: false };
+    }
+  };
+
+  // function to store author info in database
+  const createAuthor = async (ID) => {
+    const databases = new Databases(client);
+    try {
+      const result = await databases.createDocument(
+        appwriteDatabaseId,
+        appwriteAuthorInfoCollId,
+        ID,
+        { authorName: formInput.fName, profilePic: "" }
+      );
+
+      return { success: true, result };
+    } catch (error) {
+      console.log(error);
+      return { success: false, error };
     }
   };
 
@@ -290,6 +313,25 @@ function ContextProvider({ children }) {
     }
   };
 
+  // function to getAuthor Information
+  const getAuthor = async (authorId) => {
+    const databases = new Databases(client);
+    console.log("inside getAuthor:", authorId);
+
+    try {
+      const result = await databases.getDocument(
+        appwriteDatabaseId,
+        appwriteAuthorInfoCollId,
+        authorId
+      );
+
+      return { success: true, authorInfo: result };
+    } catch (error) {
+      console.log(error);
+      return { success: false, error };
+    }
+  };
+
   return (
     <myContext.Provider
       value={{
@@ -312,6 +354,7 @@ function ContextProvider({ children }) {
         listFilteredBlogs,
         filterBtnName,
         setFilterBtnName,
+        getAuthor,
       }}
     >
       {children}
