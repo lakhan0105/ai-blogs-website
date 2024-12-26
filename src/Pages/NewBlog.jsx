@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { InputComp, TextEditor } from "../Components/index";
 import { useMyContext } from "../Context/ContextProvider";
 
 function NewBlog() {
   const { blogText, isLoading } = useMyContext();
+
+  // state to store the blog text that will appear as typing animation
+  const [typingText, setTypingText] = useState("");
+
+  function loadTypingText() {
+    setTimeout(() => {
+      if (typingText.length === blogText.length) return;
+
+      setTypingText((prev) => {
+        if (prev.length < blogText.length) {
+          return prev + blogText[prev.length];
+        }
+        return prev;
+      });
+
+      loadTypingText();
+    }, 5);
+  }
+
+  // run the loadTypingText function when the page loads or blogText changes
+  useEffect(() => {
+    loadTypingText();
+  }, [blogText]);
 
   return (
     <section className="max-w-3xl mx-auto pt-0 transition-all duration-500">
@@ -35,7 +58,7 @@ function NewBlog() {
             : "opacity-0 invisible translate-y-5"
         }`}
       >
-        <TextEditor passText={blogText} />
+        <TextEditor passText={typingText} />
       </div>
     </section>
   );
