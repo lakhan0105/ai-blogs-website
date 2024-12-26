@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 function Rootlayout() {
   return (
     <main>
-      <Toaster />
+      <Toaster position="top-right" />
       <>
         <Navbar />
 
