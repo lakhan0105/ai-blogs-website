@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import CreatableSelect from "react-select/creatable";
 
 const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
+  { value: "animals", label: "animals" },
+  { value: "technology", label: "technology" },
+  { value: "health", label: "health" },
 ];
 
 const customStyles = {
